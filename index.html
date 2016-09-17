@@ -10,10 +10,22 @@
 
     <script>
         $(function() {
-            $("#planContainer").animate({
+            $("#planContainer1").animate({
                 marginBottom: -2000
             }, {
                 duration: 60000,
+                specialEasing: {
+                    marginBottom: "linear"
+                },
+                complete: function() {
+
+                }
+            });
+
+            $("#planContainer2").animate({
+                marginBottom: -2000
+            }, {
+                duration: 100000,
                 specialEasing: {
                     marginBottom: "linear"
                 },
@@ -36,113 +48,245 @@
             background-color: transparent;
             text-align: left;
         }
+        #container {
+            width:100%;
+            margin:0px;
+            padding:0px;
+        }
+        #linkeSpalte {
+            position:absolute;
+            left: 10px;
+            width:50%;
+        }
+
+        #rechteSpalte {
+            position:absolute;
+            left: 50%;
+            width:50%;
+        }
 
     </style>
 </head>
 
 <body>
-    <div id="planContainer">
-    </div>
-    <div ng-controller="vpCtrl as vp">
-        <div style="padding:0px; margin:0px;" ng-repeat="plan in vp.Plan" ng-if="plan.Titel.Inhalt!=null && $index < 2" label={{vp.tagFinder(plan.Titel.Inhalt)}}>
-            <div style="padding:0px; margin:0px;" class="demo-tab tab{{$index%4}}" style="padding: 25px; text-align: left; ">
-                <div style="padding:0px; margin:-7px;">
-                    <!--                            Überschriften-->
+    <div id="container">
+        <div id="linkeSpalte">
+            <div id="planContainer1">
+            </div>
+            <div ng-controller="vpCtrl as vp">
+                <div style="padding:0px; margin:0px;" ng-repeat="plan in vp.Plan" ng-if="plan.Titel.Inhalt!=null && $index < 2" label={{vp.tagFinder(plan.Titel.Inhalt)}}>
+                    <div style="padding:0px; margin:0px;" class="demo-tab tab{{$index%4}}" style="padding: 25px; text-align: left; ">
+                        <div style="padding:0px; margin:-7px;">
+                            <!--                            Überschriften-->
 
-                    <h3 style="border:none; background-color:transparent;">{{plan.Titel.Inhalt}}</h3>
-                    <div>{{plan.UnterTitel2.Inhalt}}</div>
+                            <h3 style="border:none; background-color:transparent;">{{plan.Titel.Inhalt}}</h3>
+                            <div>{{plan.UnterTitel2.Inhalt}}</div>
 
 
-                    <div style="text-align:left; width:100%; background-color:transparent;">
-                        {{plan.Stand.Inhalt}}
-                    </div>
+                            <div style="text-align:left; width:100%; background-color:transparent;">
+                                {{plan.Stand.Inhalt}}
+                            </div>
 
-                    <!--                            Vertretungen-->
+                            <!--                            Vertretungen-->
 
-                    <div>
-                        <h4 style="text-align:left; background-color:white;">Änderungen im Stundenplan</h4>
+                            <div>
+                                <h4 style="text-align:left; background-color:white;">Änderungen im Stundenplan</h4>
 
-                        <div class="item" ng-if="plan.Vertretungen.length > 0" style="border:none; background-color:transparent; width:100%;">
-                            <table cellspacing="0" cellpadding="0">
-                                <tr>
-                                    <th class="element" style="">
-                                        Lehrer
-                                    </th>
-                                    <th class="element" style="">
-                                        Vertr.
-                                    </th>
-                                    <th class="element" style="">
-                                        Stunde
-                                    </th>
-                                    <th class="element" style="">
-                                        Klasse
-                                    </th>
-                                    <th class="element" style="">
-                                        Fach
-                                    </th>
-                                    <th class="element" style="">
-                                        Raum
-                                    </th>
-                                    <th class="element" style="">
-                                        Anmerkung
-                                    </th>
-                                    <th class="element" style=""></th>
-                                </tr>
+                                <div class="item" ng-if="plan.Vertretungen.length > 0" style="border:none; background-color:transparent; width:100%;">
+                                    <table cellspacing="0" cellpadding="0">
+                                        <tr>
+                                            <th class="element" style="">
+                                                Lehrer
+                                            </th>
+                                            <th class="element" style="">
+                                                Vertr.
+                                            </th>
+                                            <th class="element" style="">
+                                                Stunde
+                                            </th>
+                                            <th class="element" style="">
+                                                Klasse
+                                            </th>
+                                            <th class="element" style="">
+                                                Fach
+                                            </th>
+                                            <th class="element" style="">
+                                                Raum
+                                            </th>
+                                            <th class="element" style="">
+                                                Anmerkung
+                                            </th>
+                                            <th class="element" style=""></th>
+                                        </tr>
 
-                                <tr class="grau{{$index%2}}" ng-repeat="vt in plan.Vertretungen" style="color:{{vt.Style.fontcolor}};">
+                                        <tr class="grau{{$index%2}}" ng-repeat="vt in plan.Vertretungen" style="color:{{vt.Style.fontcolor}};">
+                                            <td>
+                                                <div class="element" style="color:{{vt.Style.fontcolor}}; background-color:{{vt.Style.backgroundcolor}}">
+                                                    {{vt.LehrerNeu != "" ? vt.LehrerNeu : "&nbsp;"}}
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="element" style="color:{{vt.Style.fontcolor}}; background-color:{{vt.Style.backgroundcolor}} ">
+                                                    {{vt.VertretungNeu != "" ? vt.VertretungNeu : "&nbsp;"}}
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="element" style="color:{{vt.Style.fontcolor}}; background-color:{{vt.Style.backgroundcolor}} ">
+                                                    {{vt.StundeNeu != "" ? vt.StundeNeu : "&nbsp;"}}
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="element" style="color:{{vt.Style.fontcolor}}; background-color:{{vt.Style.backgroundcolor}} ">
+                                                    {{vt.KlasseNeu != "" ? vt.KlasseNeu : "&nbsp;"}}
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="element" style="color:{{vt.Style.fontcolor}}; background-color:{{vt.Style.backgroundcolor}} ">
+                                                    {{vt.FachNeu != "" ? vt.FachNeu : "&nbsp;"}}
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="element" style="color:{{vt.Style.fontcolor}}; background-color:{{vt.Style.backgroundcolor}} ">
+                                                    {{vt.RaumNeu != "" ? vt.RaumNeu : "&nbsp;"}}
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="element" style="color:{{vt.Style.fontcolor}}; background-color:{{vt.Style.backgroundcolor}} ">
+                                                    {{vt.AnmerkungNeu != "" ? vt.AnmerkungNeu : "&nbsp;"}}
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <!--                            Zusätze-->
+
+                            <h4 ng-if="plan.PlanZusatz.length> 0" style="text-align:left; background-color:white;">zusätzliche Informationen</h4>
+
+                            <table>
+                                <tr ng-repeat="zusatz in plan.PlanZusatz" style="color:{{zusatz.Style.fontcolor}}; background-color:{{zusatz.Style.backgroundcolor}}">
                                     <td>
-                                        <div class="element" style="color:{{vt.Style.fontcolor}}; background-color:{{vt.Style.backgroundcolor}}">
-                                            {{vt.LehrerNeu != "" ? vt.LehrerNeu : "&nbsp;"}}
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="element" style="color:{{vt.Style.fontcolor}}; background-color:{{vt.Style.backgroundcolor}} ">
-                                            {{vt.VertretungNeu != "" ? vt.VertretungNeu : "&nbsp;"}}
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="element" style="color:{{vt.Style.fontcolor}}; background-color:{{vt.Style.backgroundcolor}} ">
-                                            {{vt.StundeNeu != "" ? vt.StundeNeu : "&nbsp;"}}
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="element" style="color:{{vt.Style.fontcolor}}; background-color:{{vt.Style.backgroundcolor}} ">
-                                            {{vt.KlasseNeu != "" ? vt.KlasseNeu : "&nbsp;"}}
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="element" style="color:{{vt.Style.fontcolor}}; background-color:{{vt.Style.backgroundcolor}} ">
-                                            {{vt.FachNeu != "" ? vt.FachNeu : "&nbsp;"}}
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="element" style="color:{{vt.Style.fontcolor}}; background-color:{{vt.Style.backgroundcolor}} ">
-                                            {{vt.RaumNeu != "" ? vt.RaumNeu : "&nbsp;"}}
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="element" style="color:{{vt.Style.fontcolor}}; background-color:{{vt.Style.backgroundcolor}} ">
-                                            {{vt.AnmerkungNeu != "" ? vt.AnmerkungNeu : "&nbsp;"}}
+                                        <div class="element" style="margin-left:-8px; width:100%; color:{{zusatz.Style.fontcolor}}; background-color:{{zusatz.Style.backgroundcolor}}">
+                                            {{zusatz.Inhalt}}&nbsp;
                                         </div>
                                     </td>
                                 </tr>
                             </table>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
 
-                    <!--                            Zusätze-->
 
-                    <h4 ng-if="plan.PlanZusatz.length> 0" style="text-align:left; background-color:white;">zusätzliche Informationen</h4>
 
-                    <table>
-                        <tr ng-repeat="zusatz in plan.PlanZusatz" style="color:{{zusatz.Style.fontcolor}}; background-color:{{zusatz.Style.backgroundcolor}}">
-                            <td>
-                                <div class="element" style="margin-left:-8px; width:100%; color:{{zusatz.Style.fontcolor}}; background-color:{{zusatz.Style.backgroundcolor}}">
-                                    {{zusatz.Inhalt}}&nbsp;
+
+        <div id="rechteSpalte">
+            <div id="planContainer2">
+            </div>
+            <div ng-controller="vpCtrl as vp">
+                <div style="padding:0px; margin:0px;" ng-repeat="plan in vp.Plan" ng-if="plan.Titel.Inhalt!=null && $index < 2" label={{vp.tagFinder(plan.Titel.Inhalt)}}>
+                    <div style="padding:0px; margin:0px;" class="demo-tab tab{{$index%4}}" style="padding: 25px; text-align: left; ">
+                        <div style="padding:0px; margin:-7px;">
+                            <!--                            Überschriften-->
+
+                            <h3 style="border:none; background-color:transparent;">{{plan.Titel.Inhalt}}</h3>
+                            <div>{{plan.UnterTitel2.Inhalt}}</div>
+
+
+                            <div style="text-align:left; width:100%; background-color:transparent;">
+                                {{plan.Stand.Inhalt}}
+                            </div>
+
+                            <!--                            Vertretungen-->
+
+                            <div>
+                                <h4 style="text-align:left; background-color:white;">Änderungen im Stundenplan</h4>
+
+                                <div class="item" ng-if="plan.Vertretungen.length > 0" style="border:none; background-color:transparent; width:100%;">
+                                    <table cellspacing="0" cellpadding="0">
+                                        <tr>
+                                            <th class="element" style="">
+                                                Lehrer
+                                            </th>
+                                            <th class="element" style="">
+                                                Vertr.
+                                            </th>
+                                            <th class="element" style="">
+                                                Stunde
+                                            </th>
+                                            <th class="element" style="">
+                                                Klasse
+                                            </th>
+                                            <th class="element" style="">
+                                                Fach
+                                            </th>
+                                            <th class="element" style="">
+                                                Raum
+                                            </th>
+                                            <th class="element" style="">
+                                                Anmerkung
+                                            </th>
+                                            <th class="element" style=""></th>
+                                        </tr>
+
+                                        <tr class="grau{{$index%2}}" ng-repeat="vt in plan.Vertretungen" style="color:{{vt.Style.fontcolor}};">
+                                            <td>
+                                                <div class="element" style="color:{{vt.Style.fontcolor}}; background-color:{{vt.Style.backgroundcolor}}">
+                                                    {{vt.LehrerNeu != "" ? vt.LehrerNeu : "&nbsp;"}}
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="element" style="color:{{vt.Style.fontcolor}}; background-color:{{vt.Style.backgroundcolor}} ">
+                                                    {{vt.VertretungNeu != "" ? vt.VertretungNeu : "&nbsp;"}}
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="element" style="color:{{vt.Style.fontcolor}}; background-color:{{vt.Style.backgroundcolor}} ">
+                                                    {{vt.StundeNeu != "" ? vt.StundeNeu : "&nbsp;"}}
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="element" style="color:{{vt.Style.fontcolor}}; background-color:{{vt.Style.backgroundcolor}} ">
+                                                    {{vt.KlasseNeu != "" ? vt.KlasseNeu : "&nbsp;"}}
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="element" style="color:{{vt.Style.fontcolor}}; background-color:{{vt.Style.backgroundcolor}} ">
+                                                    {{vt.FachNeu != "" ? vt.FachNeu : "&nbsp;"}}
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="element" style="color:{{vt.Style.fontcolor}}; background-color:{{vt.Style.backgroundcolor}} ">
+                                                    {{vt.RaumNeu != "" ? vt.RaumNeu : "&nbsp;"}}
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="element" style="color:{{vt.Style.fontcolor}}; background-color:{{vt.Style.backgroundcolor}} ">
+                                                    {{vt.AnmerkungNeu != "" ? vt.AnmerkungNeu : "&nbsp;"}}
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>
                                 </div>
-                            </td>
-                        </tr>
-                    </table>
+                            </div>
+
+                            <!--                            Zusätze-->
+
+                            <h4 ng-if="plan.PlanZusatz.length> 0" style="text-align:left; background-color:white;">zusätzliche Informationen</h4>
+
+                            <table>
+                                <tr ng-repeat="zusatz in plan.PlanZusatz" style="color:{{zusatz.Style.fontcolor}}; background-color:{{zusatz.Style.backgroundcolor}}">
+                                    <td>
+                                        <div class="element" style="margin-left:-8px; width:100%; color:{{zusatz.Style.fontcolor}}; background-color:{{zusatz.Style.backgroundcolor}}">
+                                            {{zusatz.Inhalt}}&nbsp;
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
