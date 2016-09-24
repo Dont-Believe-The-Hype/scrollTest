@@ -4,6 +4,7 @@ angular.module('vpApp', [])
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
 // nur ein Kommentar
+// ein weiterer Kommentar
 
 function ($scope, $http) {
         console.log("vpCtrl start!");
