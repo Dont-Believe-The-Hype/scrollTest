@@ -5,6 +5,7 @@ angular.module('vpApp', [])
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
 // nur ein Kommentar
 // ein weiterer Kommentar
+// noch ein Kommentar am 30.09.2016
 
 function ($scope, $http) {
         console.log("vpCtrl start!");
